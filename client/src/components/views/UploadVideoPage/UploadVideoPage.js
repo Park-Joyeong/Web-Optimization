@@ -7,8 +7,15 @@ const { TextArea } = Input;
 
 function UploadVideoPage() {
 
-    const [Title, setTitle] = useState("");
+    const [title, setTitle] = useState("");
     const [Description, setDescription] = useState("");
+    const [Privacy, setPrivacy] = useState(0);
+    const [Categories, setCategories] = useState("Film & Animation");
+
+    const handleChangeTitle = (event) => {
+        console.log(event.currentTarget.value);
+        setTitle(event.currentTarget.value);
+    }
     
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
@@ -42,14 +49,14 @@ function UploadVideoPage() {
                 <br /><br />
                 <label>Title</label>
                 <Input
-                // onChange={handleChangeTitle}
-                // value={title}
+                    onChange={handleChangeTitle}
+                    value={title}
                 />
                 <br /><br />
                 <label>Description</label>
                 <TextArea
                 // onChange={handleChangeDecsription}
-                // value={Description}
+                    value={Description}
                 />
                 <br /><br />
 
