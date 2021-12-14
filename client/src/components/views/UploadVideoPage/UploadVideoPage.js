@@ -1,20 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
+const Private = [
+    { value: 0, label: "Private"},
+    { value: 1, label: "Public"}
+];
+
+const Category = [
+    { value: 0, label: "Film & Animation" },
+    { value: 0, label: "Autos & Vehicles" },
+    { value: 0, label: "Music" },
+    { value: 0, label: "Pets & Animals" },
+    { value: 0, label: "Sports" }
+];
+
 function UploadVideoPage() {
 
     const [title, setTitle] = useState("");
-    const [Description, setDescription] = useState("");
-    const [Privacy, setPrivacy] = useState(0);
-    const [Categories, setCategories] = useState("Film & Animation");
+    const [description, setDescription] = useState("");
+    const [privacy, setPrivacy] = useState(0);
+    const [categories, setCategories] = useState("Film & Animation");
 
     const handleChangeTitle = (event) => {
-        console.log(event.currentTarget.value);
         setTitle(event.currentTarget.value);
+    }
+
+    const handleChangeDecsription = (event) => {
+        setDescription(event.currentTarget.value);
+    }
+
+    const handleChangeOne = (event) => {
+        setPrivacy(event.currentTarget.value);
+    }
+
+    const handleChangeTwo = (event) => {
+        setCategories(event.currentTarget.value);
+    }
+
+    const onSubmit = () => {
+
+    }
+
+    const onDrop = (files) => {
+        let formData = new FormData();
+        const config = {
+            header: {'content-type': 'multipart/form-data'}
+        };
+        console.log(files);
+        formData.append("file", files[0]);
+
+        axios.post('/api/video/uploadfiles', formData, config)
+            .then(response => {
+                if(response.data.success) {
+                    console.log(response);
+                } else {
+                    alert("Failed to save the video in server");
+                }
+            });
     }
     
     return (
@@ -23,9 +70,10 @@ function UploadVideoPage() {
                 <Title level={2} > Upload Video</Title>
             </div>
 
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Dropzone
+                        onDrop={onDrop}
                         multiple={false}
                         maxSize={800000000}>
                         {({ getRootProps, getInputProps }) => (
@@ -55,28 +103,28 @@ function UploadVideoPage() {
                 <br /><br />
                 <label>Description</label>
                 <TextArea
-                // onChange={handleChangeDecsription}
-                    value={Description}
+                    onChange={handleChangeDecsription}
+                    value={description}
                 />
                 <br /><br />
 
-                {/* <select onChange={handleChangeOne}>
+                <select onChange={handleChangeOne}>
                     {Private.map((item, index) => (
                         <option key={index} value={item.value}>{item.label}</option>
                     ))}
-                </select> */}
+                </select>
                 <br /><br />
 
-                {/* <select onChange={handleChangeTwo}>
-                    {Catogory.map((item, index) => (
+                <select onChange={handleChangeTwo}>
+                    {Category.map((item, index) => (
                         <option key={index} value={item.label}>{item.label}</option>
                     ))}
-                </select> */}
+                </select>
                 <br /><br />
 
-                {/* <Button type="primary" size="large" onClick={onSubmit}>
+                <Button type="primary" size="large" onClick={onSubmit}>
                     Submit
-                </Button> */}
+                </Button>
 
             </Form>
         </div>
