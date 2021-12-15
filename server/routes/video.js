@@ -8,23 +8,27 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}_${file.originalname}`);
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        if(!(ext === ".mp4" || ext === ".avi")) {
-            return cb(res.status(400).end("only mp4 file is allowed"), false);
-        }
-        cb(null, true);
     }
 });
 
-var upload = multer({ storage: storage }).single("file");
+var upload = multer({ 
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        const mimeType = file.mimetype;
+        if(!(mimeType === "video/mp4" || mimeType === "video/avi")) {
+            return cb(null, false, new Error('goes wrong on the mimetype'));
+        }
+        cb(null, true);
+    } 
+}).single("file");
 
 router.post("/uploadfiles", (req, res) => {
     upload(req, res, err => {
         if(err) {
+            console.log('fffffffffffffffffffffff')
             return res.json({ success: false, err });
         }
+        console.log('ssssssssssssssssss')
         return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename });
     });
 });

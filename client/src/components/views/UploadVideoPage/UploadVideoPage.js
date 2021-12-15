@@ -25,6 +25,7 @@ function UploadVideoPage() {
     const [description, setDescription] = useState("");
     const [privacy, setPrivacy] = useState(0);
     const [categories, setCategories] = useState("Film & Animation");
+    const [filePath, setFilePath] = useState("");
 
     const handleChangeTitle = (event) => {
         setTitle(event.currentTarget.value);
@@ -51,13 +52,16 @@ function UploadVideoPage() {
         const config = {
             header: {'content-type': 'multipart/form-data'}
         };
-        console.log(files);
         formData.append("file", files[0]);
 
         axios.post('/api/video/uploadfiles', formData, config)
             .then(response => {
                 if(response.data.success) {
-                    console.log(response);
+                    const variable = {
+                        filePath: response.data.filePath,
+                        fileName: response.data.fileName
+                    }
+                    setFilePath(variable.filePath);
                 } else {
                     alert("Failed to save the video in server");
                 }
