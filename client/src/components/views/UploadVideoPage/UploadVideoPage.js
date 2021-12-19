@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
 const Private = [
-    { value: 0, label: "Private"},
-    { value: 1, label: "Public"}
+    { value: 0, label: "Private" },
+    { value: 1, label: "Public" }
 ];
 
 const Category = [
@@ -19,7 +20,9 @@ const Category = [
     { value: 0, label: "Sports" }
 ];
 
-function UploadVideoPage() {
+function UploadVideoPage(props) {
+    const user = useSelector(state => state.user);
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [privacy, setPrivacy] = useState(0);
@@ -27,7 +30,7 @@ function UploadVideoPage() {
     const [filePath, setFilePath] = useState("");
     const [duration, setDuration] = useState("");
     const [thumbnail, setThumbnail] = useState("");
-    
+
     const handleChangeTitle = (event) => {
         setTitle(event.currentTarget.value);
     }
@@ -44,20 +47,48 @@ function UploadVideoPage() {
         setCategories(event.currentTarget.value);
     }
 
-    const onSubmit = () => {
-
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if (user.userData && !user.userData.isAuth) {
+            return alert('Please Log in First');
+        }
+        if (title === "" || description === "" ||
+            categories === "" || filePath === "" ||
+            duration === "" || thumbnail === ""
+        ) {
+            return alert('Please first fill all the fileds');
+        }
+        const variables = {
+            writer: user.userData._id,
+            title: title,
+            description: description,
+            privacy: privacy,
+            filePath: filePath,
+            category: categories,
+            duration: duration,
+            thumbnail: thumbnail
+        };
+        axios.post('/api/video/uploadVideo', variables)
+            .then(response => {
+                if (response.data.success) {
+                    alert('video Uploaded Successfully');
+                    props.history.push('/');
+                } else {
+                    alert('Failed to upload video');
+                }
+            });
     }
 
     const onDrop = (files) => {
         let formData = new FormData();
         const config = {
-            header: {'content-type': 'multipart/form-data'}
+            header: { 'content-type': 'multipart/form-data' }
         };
         formData.append("file", files[0]);
 
         axios.post('/api/video/uploadfiles', formData, config)
             .then(response => {
-                if(response.data.success) {
+                if (response.data.success) {
                     const variable = {
                         filePath: response.data.filePath,
                         fileName: response.data.fileName
@@ -65,7 +96,7 @@ function UploadVideoPage() {
                     setFilePath(variable.filePath);
                     axios.post('/api/video/thumbnail', variable)
                         .then(response => {
-                            if(response.data.success) {
+                            if (response.data.success) {
                                 setDuration(response.data.fileDuration);
                                 setThumbnail(response.data.thumbsFilePath);
                             } else {
@@ -77,7 +108,7 @@ function UploadVideoPage() {
                 }
             });
     }
-    
+
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
