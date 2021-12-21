@@ -26,7 +26,7 @@ const DetailVideoPage = (props) => {
     return (
         <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
             filePath: {video.filePath}
-            <video style={{ width: '100%' }} src={`http://localhost:5000/uploads/1639969756711_movie1.avi`} controls></video>
+            <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
 
             <List.Item
                 actions={[]}
