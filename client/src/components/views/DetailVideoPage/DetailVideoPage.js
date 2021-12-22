@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { List, Avatar, Typograph } from 'antd';
+import { List, Avatar, Typograph, Row, Col } from 'antd';
 import axios from 'axios';
+import SideVideo from './Sections/SideVideo';
 
 const DetailVideoPage = (props) => {
 
@@ -24,21 +25,27 @@ const DetailVideoPage = (props) => {
     }, []);
 
     return (
-        <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
-            filePath: {video.filePath}
-            <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
+        <Row>
+            <Col lg={18} xs={24}>
+                <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
+                    <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
 
-            <List.Item
-                actions={[]}
-            >
-                <List.Item.Meta
-                    avatar={<Avatar src={video.writer && video.writer.image} />}
-                    title={<a href="https://ant.design">{video.title}</a>}
-                    description={video.description}
-                />
-                <div></div>
-            </List.Item>
-        </div>
+                    <List.Item
+                        actions={[]}
+                    >
+                        <List.Item.Meta
+                            avatar={<Avatar src={video.writer && video.writer.image} />}
+                            title={<a href="https://ant.design">{video.title}</a>}
+                            description={video.description}
+                        />
+                        <div></div>
+                    </List.Item>
+                </div>
+            </Col>
+            <Col lg={6} xs={24}>
+                <SideVideo />
+            </Col>
+        </Row>
     );
 };
 
