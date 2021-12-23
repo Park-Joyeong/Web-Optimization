@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 function Subscriber(props) {
+    const userTo = props.userTo;
+    useEffect(() => {
+        const subscribeNumberVariables = {};
+        axios.post('/api/subscribe/subscribeNumber', subscribeNumberVariables);
+    });
     return (
         <div>
             <button style={{
