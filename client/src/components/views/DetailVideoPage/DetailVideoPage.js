@@ -32,7 +32,7 @@ const DetailVideoPage = (props) => {
                     <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
 
                     <List.Item
-                        actions={[<Subscriber/>]}
+                        actions={[<Subscriber userTo={video.writer._id} />]}
                     >
                         <List.Item.Meta
                             avatar={<Avatar src={video.writer && video.writer.image} />}
