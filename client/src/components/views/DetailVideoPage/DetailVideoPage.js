@@ -25,29 +25,36 @@ const DetailVideoPage = (props) => {
             });
     }, []);
 
-    return (
-        <Row>
-            <Col lg={18} xs={24}>
-                <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
-                    <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
+    if (video.writer) {
+        return (
+            <Row>
+                <Col lg={18} xs={24}>
+                    <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
+                        <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
 
-                    <List.Item
-                        actions={[<Subscriber userTo={video.writer._id} />]}
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src={video.writer && video.writer.image} />}
-                            title={<a href="https://ant.design">{video.title}</a>}
-                            description={video.description}
-                        />
-                        <div></div>
-                    </List.Item>
-                </div>
-            </Col>
-            <Col lg={6} xs={24}>
-                <SideVideo />
-            </Col>
-        </Row>
-    );
+                        <List.Item
+                            actions={[<Subscriber userTo={video.writer._id} userFrom={localStorage.getItem('userId')} />]}
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={video.writer && video.writer.image} />}
+                                title={<a href="https://ant.design">{video.title}</a>}
+                                description={video.description}
+                            />
+                            <div></div>
+                        </List.Item>
+                    </div>
+                </Col>
+                <Col lg={6} xs={24}>
+                    <SideVideo />
+                </Col>
+            </Row>
+        );
+    } else {
+        return (
+            <div>Loading...</div>
+        );
+    }
+
 };
 
 export default DetailVideoPage;
