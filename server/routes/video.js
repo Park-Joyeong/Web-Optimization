@@ -4,7 +4,7 @@ const multer = require('multer');
 const ffmpeg = require('fluent-ffmpeg');
 
 const { Video } = require('../models/Video');
-
+const { Subscriber } = require('../models/Subscriber');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -37,20 +37,14 @@ router.post("/uploadfiles", (req, res) => {
 router.post("/thumbnail", (req, res) => {
     let thumbsFilePath = "";
     let fileDuration = "";
-    console.log('req.body.filePath:::');
-    console.log(req.body.filePath);
     ffmpeg.ffprobe(req.body.filePath, function (err, metadata) {
-        console.dir(metadata);
-        console.log(metadata.format.duration);
         fileDuration = metadata.format.duration;
     });
     ffmpeg(req.body.filePath)
         .on('filenames', function (filenames) {
-            console.log('Will generate ' + filenames.join(', '));
             thumbsFilePath = "uploads/thumbnails/" + filenames[0];
         })
         .on('end', function () {
-            console.log('Screenshots taken');
             return res.json({ success: true, thumbsFilePath: thumbsFilePath, fileDuration: fileDuration });
         })
         .screenshots({
@@ -89,6 +83,26 @@ router.post("/getVideo", (req, res) => {
         .exec((err, video) => {
             if (err) return res.status(400).send(err);
             res.status(200).json({ success: true, video: video });
+        });
+});
+
+router.post("/getSubscriptionVideos", (req, res) => {
+    Subscriber.find({ 'userFrom': req.body.userFrom })
+        .exec((err, subscribers) => {
+            if (err) return res.status(400).send(err);
+
+            let subscribedUser = [];
+
+            subscribers.map((subscriber, i) => {
+                subscribedUser.push(subscriber.userTo);
+            });
+
+            Video.find({ writer: { $in: subscribedUser } })
+                .populate('writer')
+                .exec((err, videos) => {
+                    if (err) return res.status(400).send(err);
+                    res.status(200).json({ success: true, videos });
+                })
         });
 });
 
