@@ -3,6 +3,7 @@ import { List, Avatar, Typograph, Row, Col } from 'antd';
 import axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 import Subscriber from './Sections/Subscriber';
+import Comments from './Sections/Comments';
 
 const DetailVideoPage = (props) => {
 
@@ -42,6 +43,7 @@ const DetailVideoPage = (props) => {
                             />
                             <div></div>
                         </List.Item>
+                        <Comments />
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
