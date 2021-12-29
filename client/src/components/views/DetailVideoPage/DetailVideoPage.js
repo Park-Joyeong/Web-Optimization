@@ -9,6 +9,7 @@ const DetailVideoPage = (props) => {
 
     const videoId = props.match.params.videoId;
     const [video, setVideo] = useState([]);
+    const [commentList, setCommentList] = useState([]);
 
     const videoVariable = {
         videoId: videoId
@@ -25,6 +26,10 @@ const DetailVideoPage = (props) => {
                 }
             });
     }, []);
+
+    const updateComment = (newComment) => {
+        setCommentList(commentList.concat(newComment));
+    }
 
     if (video.writer) {
         return (
@@ -43,7 +48,7 @@ const DetailVideoPage = (props) => {
                             />
                             <div></div>
                         </List.Item>
-                        <Comments />
+                        <Comments commentList={commentList} postId={video._id} refreshFunction={updateComment} />
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
