@@ -29,6 +29,7 @@ const DetailVideoPage = (props) => {
 
     const updateComment = (newComment) => {
         setCommentList(commentList.concat(newComment));
+        console.log('up')
     }
 
     if (video.writer) {

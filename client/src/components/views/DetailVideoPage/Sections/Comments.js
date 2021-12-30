@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input } from 'antd';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import SingleComment from './SingleComment'
 const { TextArea } = Input;
 
 function Comments(props) {
@@ -35,10 +36,12 @@ function Comments(props) {
             <br />
             <p>replies</p>
             <hr />
-            {props.comentList && props.commentList.map((comment, index) => (
-                <React.Fragment>
-                    <SingleComment />
-                </React.Fragment>
+            {props.commentList && props.commentList.map((comment, index) => (
+                (!comment.responseTo &&
+                    <React.Fragment>
+                        <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
+                    </React.Fragment>
+                )
             ))}
             <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                 <TextArea
