@@ -68,7 +68,6 @@ router.get("/getVideos", (req, res) => {
 
 router.post("/uploadVideo", (req, res) => {
     const video = new Video(req.body);
-
     video.save((err, video) => {
         if (err) return res.status(400).json({ success: false, err })
         return res.status(200).json({
@@ -78,6 +77,9 @@ router.post("/uploadVideo", (req, res) => {
 });
 
 router.post("/getVideo", (req, res) => {
+    const filter = { "_id": req.body.videoId };
+    const update = { $inc: { views: 1 } };
+    Video.findOneAndUpdate(filter, update).exec();
     Video.findOne({ "_id": req.body.videoId })
         .populate('writer')
         .exec((err, video) => {
