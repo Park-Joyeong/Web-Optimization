@@ -1,3 +1,5 @@
+# http://3.35.190.151:3000
+
 ## BeforePorject
 - 기간: ~2022.1.8
 - https://github.com/jaewonhimnae/react-shop-app
