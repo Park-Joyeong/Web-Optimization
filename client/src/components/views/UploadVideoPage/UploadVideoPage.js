@@ -134,7 +134,7 @@ function UploadVideoPage(props) {
 
                     {thumbnail !== "" &&
                         <div>
-                            <img src={`http://localhost:5000/${thumbnail}`} alt="thumbnail" />
+                            <img src={`http://3.35.190.151:5000/${thumbnail}`} alt="thumbnail" />
                         </div>
                     }
                 </div>
