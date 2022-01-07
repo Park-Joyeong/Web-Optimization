@@ -46,7 +46,7 @@ const DetailVideoPage = (props) => {
             <Row>
                 <Col lg={18} xs={24}>
                     <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
-                        <video style={{ width: '100%' }} src={`http://localhost:5000/${video.filePath}`} controls></video>
+                        <video style={{ width: '100%' }} src={`http://${process.argv[2]}:5000/${video.filePath}`} controls></video>
 
                         <List.Item
                             actions={[
