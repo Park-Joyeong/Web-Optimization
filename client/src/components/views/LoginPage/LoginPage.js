@@ -90,7 +90,7 @@ function LoginPage(props) {
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="Enter your email"
                   type="email"
-                  value={values.email}
+                  value={values.email && values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={

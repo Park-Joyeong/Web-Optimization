@@ -1,9 +1,6 @@
 /node_modules
 /build
-
-
-dev.js
-
+server/config.js
 uploads
 
 .DS_Store

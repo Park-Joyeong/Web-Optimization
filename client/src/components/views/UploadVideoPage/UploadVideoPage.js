@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+const config = require('../../../config/config');
 const { Title } = Typography;
 const { TextArea } = Input;
 
@@ -134,7 +135,7 @@ function UploadVideoPage(props) {
 
                     {thumbnail !== "" &&
                         <div>
-                            <img src={`http://${process.argv[2]}:5000/${thumbnail}`} alt="thumbnail" />
+                            <img src={`${config.hostUrl}:5000/${thumbnail}`} alt="thumbnail" />
                         </div>
                     }
                 </div>

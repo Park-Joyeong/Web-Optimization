@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+const config = require('../../../../config/config');
 
 function SideVideo() {
     const [sideVideos, setSideVideos] = useState([]);
@@ -20,7 +21,7 @@ function SideVideo() {
         return <div key={index} style={{ display: 'flex', marginTop: '1rem', padding: '0 2rem' }}>
             <div style={{ width: '40%', marginRight: '1rem' }}>
                 <a href={`/video/${video._id}`} style={{ color: 'grey'}}>
-                    <img style={{ width: '100%' }} src={`http://${process.argv[2]}:5000/${video.thumbnail}`} alt="thumbnail" />
+                    <img style={{ width: '100%' }} src={`${config.hostUrl}:5000/${video.thumbnail}`} alt="thumbnail" />
                 </a>
             </div>
             <div style={{ width: '50%' }}>

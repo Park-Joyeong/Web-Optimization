@@ -11,8 +11,8 @@
     "start": "node server/index.js",
     "backend": "nodemon server/index.js",
     "frontend": "npm run start --prefix client",
-    "local": "concurrently \"npm run backend\" \"npm run start localhost --prefix client\"",
-    "dev": "concurrently \"npm run backend\" \"npm run start 3.35.190.151 --prefix client\""
+    "local": "concurrently \"npm run backend\" \"REACT_APP_WITCH_SERVER=local npm run start --prefix client\"",
+    "dev": "concurrently \"npm run backend\" \"REACT_APP_WITCH_SERVER=dev npm run start --prefix client\""
   },
   "author": "John ahn",
   "license": "ISC",

@@ -5,6 +5,7 @@ import SideVideo from './Sections/SideVideo';
 import Subscriber from './Sections/Subscriber';
 import Comments from './Sections/Comments';
 import LikeDislikes from './Sections/LikeDislikes';
+const config = require('../../../config/config');
 
 const DetailVideoPage = (props) => {
 
@@ -46,7 +47,7 @@ const DetailVideoPage = (props) => {
             <Row>
                 <Col lg={18} xs={24}>
                     <div className="postPage" style={{ width: '100%', padding: '3rem 4em' }}>
-                        <video style={{ width: '100%' }} src={`http://${process.argv[2]}:5000/${video.filePath}`} controls></video>
+                        <video style={{ width: '100%' }} src={`${config.hostUrl}:5000/${video.filePath}`} controls></video>
 
                         <List.Item
                             actions={[
