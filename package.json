@@ -8,11 +8,9 @@
     "npm": "6.14.15"
   },
   "scripts": {
-    "start": "node server/index.js",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "nodemon server/index.js",
-    "frontend": "npm run start --prefix client",
-    "local": "concurrently \"npm run backend\" \"REACT_APP_WITCH_SERVER=local npm run start --prefix client\"",
-    "dev": "concurrently \"npm run backend\" \"REACT_APP_WITCH_SERVER=dev npm run start --prefix client\""
+    "frontend": "npm start --prefix client"
   },
   "author": "John ahn",
   "license": "ISC",

@@ -1,5 +1,14 @@
 # http://3.35.190.151:3000
 
+## 프로젝트 실행방법
+
+1. 프로젝트를 내려 받는다.
+2. 루트폴더 `npm i`
+3. client 폴더로 이동 `npm i`
+4. 루트폴더에 uploads 폴더를 추가 한다.
+5. server 폴더에 config.js를 만든다. 내용: `module.exports = { mongoURI: '여기에 내 몽고DB 주소' }` (몽고DB홈피 SECURITY>Network Access 에서 내 아이피 열어줄것.)
+6. `REACT_APP_WITCH_SERVER=local npm start` (로컬기동이 아닐시 `REACT_APP_WITCH_SERVER=dev npm start`)
+
 ## BeforePorject
 - 기간: ~2022.1.8
 - https://github.com/jaewonhimnae/react-shop-app
