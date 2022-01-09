@@ -81,6 +81,10 @@ function UploadVideoPage(props) {
     }
 
     const onDrop = (files) => {
+        if (files[0].type !== 'video/mp4') {
+            alert('번거로우시겠지만 mp4 파일로 등록해주시겠어요? 감사합니다.');
+            return;
+        }
         let formData = new FormData();
         const config = {
             header: { 'content-type': 'multipart/form-data' }

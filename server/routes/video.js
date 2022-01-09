@@ -59,6 +59,7 @@ router.post("/thumbnail", (req, res) => {
 
 router.get("/getVideos", (req, res) => {
     Video.find()
+        .sort({ createdAt: -1 })
         .populate('writer')
         .exec((err, videos) => {
             if (err) return res.status(400).send(err);

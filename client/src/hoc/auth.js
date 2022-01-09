@@ -4,11 +4,7 @@ import { auth } from '../_actions/user_actions';
 import { useSelector, useDispatch } from "react-redux";
 
 export default function (SpecificComponent, option, adminRoute = null, props) {
-    console.log(1111);
-    console.log(props);
     function AuthenticationCheck(props) {
-        console.log(2222);
-        console.log(props);
         let user = useSelector(state => state.user);
         const dispatch = useDispatch();
 

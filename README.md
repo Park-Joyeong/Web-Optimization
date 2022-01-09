@@ -1,4 +1,4 @@
-# http://3.35.190.151:3000
+# http://xxx.xxx.xxx.xxx:3000
 
 ## 프로젝트 실행방법
 
@@ -10,8 +10,10 @@
 6. server 폴더에 config.js를 만든다. 내용: `module.exports = { mongoURI: '여기에 내 몽고DB 주소' }` (몽고DB홈피 SECURITY>Network Access 에서 내 아이피 열어줄것.)
 7. `REACT_APP_WITCH_SERVER=local npm start` (로컬기동이 아닐시 `REACT_APP_WITCH_SERVER=dev npm start`)
 
+
 ## BeforePorject
 - 기간: ~2022.1.8
+- https://github.com/jaewonhimnae/react-youtube-clone
 - 배포까지 완료하기
 - 웹 성능 측정
 
