@@ -52,8 +52,7 @@ router.post("/thumbnail", (req, res) => {
             count: 3,
             folder: 'uploads/thumbnails',
             size: '320x240',
-            // %b input basename(File name without extension)
-            filename: 'thumbnail-%b.png'
+            filename: 'thumbnail-%b.webp'
         });
 });
 
