@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import { FaCode } from 'react-icons/fa';
 import { Card, Avatar, Col, Typography, Row } from 'antd';
 import axios from 'axios';
@@ -10,15 +10,13 @@ const { Meta } = Card;
 
 function LandingPage() {
     const [videos, setVideos] = useState([]);
-    const imgRefs = useRef([]);
-
-    const loadReal = (img) => {
-        console.log(img)
-        console.log(img.display)
-        if (img.display != "none") {
-            img.onload = null;
-            img.src = img.getAttribute("data-src");
-        }
+    const imgRefs = videos.map(() => createRef());
+    const loadReal = (index) => {
+        const imageTag = imgRefs[index];
+        console.log(imageTag)
+        console.log('bbb')
+        // img.onload = null;
+        // img.src = img.getAttribute("data-src");
     }
     useEffect(() => {
         axios.get('/api/video/getVideos')
@@ -36,13 +34,13 @@ function LandingPage() {
         return <Col lg={6} md={8} xs={24} key={index}>
             <div style={{ position: 'relative' }}>
                 <a href={`/video/${video._id}`}>
-                    <img 
-                        style={{ width: '100%' }} 
-                        alt="thumbnail" 
-                        src="/img/1px.png" 
+                    <img
+                        style={{ width: '100%' }}
+                        alt="thumbnail"
+                        src="/img/1px.png"
                         data-src={`${config.hostUrl}:5000/${video.thumbnail}`}
-                        onLoad={loadReal(this)}
-                        ref={imgRefs}
+                        onLoad={loadReal(index)}
+                        ref={imgRefs[index]}
                     />
                     <div className="duration"
                         style={{
