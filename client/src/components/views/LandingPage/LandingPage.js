@@ -10,11 +10,20 @@ const { Meta } = Card;
 
 function LandingPage() {
     const [videos, setVideos] = useState([]);
-    const imgRefs = videos.map(() => createRef());
+    const imgRefs = [];
+    const setRef = (ref) => {
+        imgRefs.push(ref);
+        console.log(imgRefs)
+    }
+    
     const loadReal = (index) => {
+        // console.log(index);
+        console.log(imgRefs[index]);
         const imageTag = imgRefs[index];
-        console.log(imageTag)
-        console.log('bbb')
+        for (const key in imageTag) {
+            // console.log(`${key}: ${imageTag[key]}`)
+        }
+        // console.log('bbb')
         // img.onload = null;
         // img.src = img.getAttribute("data-src");
     }
@@ -40,7 +49,7 @@ function LandingPage() {
                         src="/img/1px.png"
                         data-src={`${config.hostUrl}:5000/${video.thumbnail}`}
                         onLoad={loadReal(index)}
-                        ref={imgRefs[index]}
+                        ref={setRef}
                     />
                     <div className="duration"
                         style={{
