@@ -14,18 +14,14 @@ function LandingPage() {
     const setRef = (ref) => {
         imgRefs.push(ref);
         console.log(imgRefs)
+        console.log('setRef')
     }
-    
-    const loadReal = (index) => {
-        // console.log(index);
-        console.log(imgRefs[index]);
-        const imageTag = imgRefs[index];
-        for (const key in imageTag) {
-            // console.log(`${key}: ${imageTag[key]}`)
-        }
-        // console.log('bbb')
-        // img.onload = null;
-        // img.src = img.getAttribute("data-src");
+
+    const loadReal = () => {
+        console.log('aaa')
+        imgRefs.map(imgRef => {
+            imgRef.src = imgRefs.getAttribute("data-src");
+        })
     }
     useEffect(() => {
         axios.get('/api/video/getVideos')
@@ -36,7 +32,11 @@ function LandingPage() {
                     alert('Failed to get Videos');
                 }
             });
+        if (imgRefs && imgRefs[0] && imgRefs[0].current) {
+            loadReal();
+        }
     }, []);
+
     const renderCards = videos.map((video, index) => {
         let minutes = Math.floor(video.duration / 60);
         let seconds = Math.floor(video.duration - minutes * 60);
@@ -48,7 +48,6 @@ function LandingPage() {
                         alt="thumbnail"
                         src="/img/1px.png"
                         data-src={`${config.hostUrl}:5000/${video.thumbnail}`}
-                        onLoad={loadReal(index)}
                         ref={setRef}
                     />
                     <div className="duration"
