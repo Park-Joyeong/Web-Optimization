@@ -10,19 +10,7 @@ const { Meta } = Card;
 
 function LandingPage() {
     const [videos, setVideos] = useState([]);
-    const imgRefs = [];
-    const setRef = (ref) => {
-        imgRefs.push(ref);
-        console.log(imgRefs)
-        console.log('setRef')
-    }
 
-    const loadReal = () => {
-        console.log('aaa')
-        imgRefs.map(imgRef => {
-            imgRef.src = imgRefs.getAttribute("data-src");
-        })
-    }
     useEffect(() => {
         axios.get('/api/video/getVideos')
             .then(response => {
@@ -32,9 +20,6 @@ function LandingPage() {
                     alert('Failed to get Videos');
                 }
             });
-        if (imgRefs && imgRefs[0] && imgRefs[0].current) {
-            loadReal();
-        }
     }, []);
 
     const renderCards = videos.map((video, index) => {
@@ -46,9 +31,8 @@ function LandingPage() {
                     <img
                         style={{ width: '100%' }}
                         alt="thumbnail"
-                        src="/img/1px.png"
-                        data-src={`${config.hostUrl}:5000/${video.thumbnail}`}
-                        ref={setRef}
+                        src={`${config.hostUrl}:5000/${video.thumbnail}`}
+                        loading="lazy"
                     />
                     <div className="duration"
                         style={{
