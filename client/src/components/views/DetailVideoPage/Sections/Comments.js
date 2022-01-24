@@ -14,6 +14,10 @@ function Comments(props) {
         setComment(e.currentTarget.value);
     }
 
+    const checkLogin = () => {
+        console.log('aaa')
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
         const variables = {
@@ -51,7 +55,8 @@ function Comments(props) {
                     style={{ width: '100%', borderRadius: '5px' }}
                     onChange={handleChange}
                     value={comment}
-                    placeholder="write some comments" />
+                    placeholder="write some comments"
+                    onFocus={checkLogin} />
                 <br />
                 <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
             </form>
