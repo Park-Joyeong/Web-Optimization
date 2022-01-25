@@ -14,8 +14,16 @@ function Comments(props) {
         setComment(e.currentTarget.value);
     }
 
-    const checkLogin = () => {
-        console.log('aaa')
+    const onFocus = (event) => {
+        if(!isLoggedIn()) console.log('로그인 후 이용해주세요.');
+        console.log(event.currentTarget);
+        const curr = event.currentTarget;
+        event.currentTarget.trigger("focusout");
+    }
+
+    const isLoggedIn = () => {
+        if(user.userData.isAuth) return true;
+        else return false;
     }
 
     const onSubmit = (e) => {
@@ -56,7 +64,7 @@ function Comments(props) {
                     onChange={handleChange}
                     value={comment}
                     placeholder="write some comments"
-                    onFocus={checkLogin} />
+                    onFocus={onFocus} />
                 <br />
                 <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
             </form>
