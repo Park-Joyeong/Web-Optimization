@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { Comment, Avatar, Button, Input } from 'antd';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -14,12 +14,28 @@ function SingleComment(props) {
         setCommentValue(e.currentTarget.value);
     }
 
+    const onFocus = (event) => {
+        if(!isLoggedIn()) {
+            event.currentTarget.blur();
+        }
+    }
+
+    const isLoggedIn = () => {
+        if(user.userData.isAuth) {
+            return true;
+        } else {
+            alert('로그인 후 이용해주세요.');
+            return false;
+        }
+    }
+
     const openReplySection = () => {
         setOpenReply(!openReply);
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if(!isLoggedIn()) return;
         const variables = {
             writer: user.userData._id,
             postId: props.postId,
@@ -67,6 +83,7 @@ function SingleComment(props) {
                         onChange={handleChange}
                         value={commentValue}
                         placeholder='write some comment'
+                        onFocus={onFocus}
                     />
                     <br />
                     <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>

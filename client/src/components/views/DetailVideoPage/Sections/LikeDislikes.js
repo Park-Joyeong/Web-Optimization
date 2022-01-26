@@ -22,7 +22,7 @@ function LikeDislikes(props) {
             .then(response => {
                 if (response.data.success) {
                     setLikes(response.data.likes.length);
-                    response.data.likes.map(like => {
+                    response.data.likes.forEach(like => {
                         if (like.userId === props.userId) {
                             setLikeAction('liked');
                         }
@@ -36,7 +36,7 @@ function LikeDislikes(props) {
             .then(response => {
                 if (response.data.success) {
                     setLikes(response.data.dislikes.length);
-                    response.data.dislikes.map(dislikes => {
+                    response.data.dislikes.forEach(dislikes => {
                         if (dislikes.userId === props.userId) {
                             setDislikeAction('dislikes');
                         }

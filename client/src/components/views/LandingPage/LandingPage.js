@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, createRef } from 'react';
-import { FaCode } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
 import { Card, Avatar, Col, Typography, Row } from 'antd';
 import axios from 'axios';
 import moment from 'moment';

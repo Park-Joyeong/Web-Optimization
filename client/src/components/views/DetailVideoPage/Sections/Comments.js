@@ -15,19 +15,23 @@ function Comments(props) {
     }
 
     const onFocus = (event) => {
-        if(!isLoggedIn()) console.log('로그인 후 이용해주세요.');
-        console.log(event.currentTarget);
-        const curr = event.currentTarget;
-        event.currentTarget.trigger("focusout");
+        if(!isLoggedIn()) {
+            event.currentTarget.blur();
+        }
     }
 
     const isLoggedIn = () => {
-        if(user.userData.isAuth) return true;
-        else return false;
+        if(user.userData.isAuth) {
+            return true;
+        } else {
+            alert('로그인 후 이용해주세요.');
+            return false;
+        }
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if(!isLoggedIn()) return;
         const variables = {
             content: comment,
             writer: user.userData._id,
@@ -64,7 +68,8 @@ function Comments(props) {
                     onChange={handleChange}
                     value={comment}
                     placeholder="write some comments"
-                    onFocus={onFocus} />
+                    onFocus={onFocus}
+                />
                 <br />
                 <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
             </form>
