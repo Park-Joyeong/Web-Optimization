@@ -6,10 +6,11 @@ import moment from 'moment';
 const config = require('../../../config/config');
 const { Title } = Typography;
 const { Meta } = Card;
+const variable = { userFrom: localStorage.getItem('userId')};
 
 function SubscriptionPage() {
     const [videos, setVideos] = useState([]);
-    const variable = { userFrom: localStorage.getItem('userId')};
+    
     useEffect(() => {
         axios.post('/api/video/getSubscriptionVideos', variable)
             .then(response => {
