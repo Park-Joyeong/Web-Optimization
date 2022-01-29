@@ -6,16 +6,13 @@ import Subscriber from './Sections/Subscriber';
 import Comments from './Sections/Comments';
 import LikeDislikes from './Sections/LikeDislikes';
 const config = require('../../../config/config');
+const videoVariable = {};
 
 const DetailVideoPage = (props) => {
-
     const videoId = props.match.params.videoId;
+    videoVariable['videoId'] = videoId;
     const [video, setVideo] = useState([]);
     const [commentList, setCommentList] = useState([]);
-
-    const videoVariable = {
-        videoId: videoId
-    };
 
     useEffect(() => {
         axios.post('/api/video/getVideo', videoVariable)

@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Tooltip, Icon } from 'antd';
 import axios from 'axios';
 
-function LikeDislikes(props) {
 
+
+function LikeDislikes(props) {
     const [likes, setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [likeAction, setLikeAction] = useState(null);
     const [dislikeAction, setDislikeAction] = useState(null);
-
-    let variable = {};
+    const [variable, setVariable] = useState({});
 
     if (props.video) {
-        variable = { videoId: props.videoId, userId: props.userId }
+        setVariable({ videoId: props.videoId, userId: props.userId });
     } else {
-        variable = { commentId: props.commentId, userId: props.userId }
+        setVariable({ commentId: props.commentId, userId: props.userId })
     }
 
     useEffect(() => {
@@ -45,7 +45,7 @@ function LikeDislikes(props) {
                     alert('Failed to get dislikes');
                 }
             });
-    }, [])
+    }, [variable, props.userId])
 
     const onLike = () => {
         if (likeAction === null) {
