@@ -5,7 +5,7 @@
 4. 자신의 PC에 ffmpeg라는 프로그램을 설치한다.(윈도우즈 컴퓨터는 환경변수에 경로추가)(ffmpeg는 동영상파일이 주어졌을때 동영상 파일을 추출해 썸네일 사진을 만들어주는 프로그램임. 비디오 업로드 할때 쓸것임.)
 5. 루트폴더에 uploads 폴더를 추가 한다.
 6. server 폴더에 config.js를 만든다. 내용: `module.exports = { mongoURI: '여기에 내 몽고DB 주소' }` (몽고DB홈피 SECURITY>Network Access 에서 내 아이피 열어줄것.)
-7. `REACT_APP_WITCH_SERVER=local npm start` (로컬기동이 아닐시 `REACT_APP_WITCH_SERVER=dev npm start`)
+7. `REACT_APP_WITCH_SERVER=local npm start` (로컬기동이 아닐시 `NODE_ENV=production REACT_APP_WITCH_SERVER=dev npm start`)
 
 
 ## BeforePorject
